@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 import List from './List';
 
 describe('Component and Behavioral Tests', () => {
@@ -26,9 +27,22 @@ describe('Component and Behavioral Tests', () => {
       </MemoryRouter>
     );
 
-    // screen.debug();
-
     // find the filter input box
     const search = screen.getByPlaceholderText('Find a Pokemon');
+
+    //type the word "venusaur" into our search
+    userEvent.type(search, 'venusaur');
+
+    // await screen.debug();
+
+    //check that only "venusaur" character appears
+    // await screen.findByText('venusaur');
+
+    return waitFor(async () => {
+      const result = await screen.findByRole('heading');
+      expect(result.textContent).toEqual('venusaur');
+    });
+
+    // })
   });
 });

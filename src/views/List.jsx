@@ -20,7 +20,7 @@ export default function List() {
       pokemon.pokemon.toLowerCase().startsWith(search.toLowerCase().trim())
     );
     setFilteredPokemon(results);
-    console.log('filteredPokemon', filteredPokemon);
+    // console.log('filteredPokemon', filteredPokemon);
   }
 
   // useEffect
@@ -47,7 +47,7 @@ export default function List() {
         onChange={handleSearch}
       ></input>
       {loading ? (
-        <h2>Loading...</h2>
+        <p>Loading...</p>
       ) : (
         <div className={styles.list}>
           {list.map((pokemon, i) => (
