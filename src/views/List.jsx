@@ -17,7 +17,7 @@ export default function List() {
   function handleSearch(e) {
     setSearch(e.target.value);
     const results = pokemonList.filter((pokemon) =>
-      pokemon.name.toLowerCase().includes(e.target.value.toLowerCase().trim())
+      pokemon.pokemon.toLowerCase().startsWith(search.toLowerCase().trim())
     );
     setFilteredPokemon(results);
     console.log('filteredPokemon', filteredPokemon);
