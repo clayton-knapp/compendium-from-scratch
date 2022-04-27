@@ -1,4 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import List from './List';
@@ -17,29 +22,24 @@ describe('Component and Behavioral Tests', () => {
   });
 
   it('Should test the behavior of the filtering', async () => {
-    render(
-      <MemoryRouter>
-        <List />
-      </MemoryRouter>
-    );
-
+    render(<List />);
+    //could wait for loading message to be removed
+    await waitForElementToBeRemoved(screen.getByText(/loading/i));
     // find the filter input box
     const search = screen.getByPlaceholderText('Find a Pokemon');
 
-    //type the word "venusaur" into our search
+    //type the word "jiggly" into our search
 
-    await userEvent.type(search, 'jiggly');
+    userEvent.type(search, 'jiggly');
 
     //check that only "jigglypuff" character appears
+    return waitFor(() => {
+      const result = screen.getByText('jigglypuff');
+      screen.debug();
+      expect(result.textContent).toEqual('jigglypuff');
+    });
 
-    //FAILED ATTEMPT 1
-    // return waitFor(() => {
-    //   const result = screen.getByText('jigglypuff');
-    //   screen.debug();
-    //   expect(result.textContent).toEqual('jigglypuff');
-    // });
-
-    // FAILED ATTEMPT 2
+    // other methods
     // return waitFor(() => {
     //   const result = screen.getByLabelText('name');
     //   screen.debug();
@@ -47,7 +47,7 @@ describe('Component and Behavioral Tests', () => {
     //   expect(result.textContent).toEqual('jigglypuff');
     // });
 
-    // FAILED ATTEMPT 3
+    // other methods
     // return waitFor(() => {
     //   const result = screen.getByRole('heading', {
     //     level: 2,
