@@ -42,7 +42,7 @@ export default function List() {
   return (
     <>
       <input
-        placholder="Find a Pokemon"
+        placeholder="Find a Pokemon"
         value={search}
         onChange={handleSearch}
       ></input>
