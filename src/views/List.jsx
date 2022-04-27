@@ -12,12 +12,12 @@ export default function List() {
 
   const isSearching = !!search.length;
   const noResults = isSearching && !filteredPokemon.length;
-  const list = isSearching ? filteredPokemon : pokemonList;
+  // const list = isSearching ? filteredPokemon : pokemonList;
 
   function handleSearch(e) {
     setSearch(e.target.value);
-    const results = pokemonList.filter((pokemon) =>
-      pokemon.pokemon.toLowerCase().startsWith(search.toLowerCase().trim())
+    const results = pokemonList.filter(({ pokemon }) =>
+      pokemon.toLowerCase().startsWith(e.target.value.toLowerCase().trim())
     );
     setFilteredPokemon(results);
     // console.log('filteredPokemon', filteredPokemon);
@@ -44,18 +44,21 @@ export default function List() {
       <input
         placeholder="Find a Pokemon"
         value={search}
-        // onChange={(e) => {handleSearch(e)}}
+        // onChange={(e) => {
+        //   handleSearch(e);
+        // }}
         onChange={handleSearch}
-      ></input>
+      />
       {loading ? (
         <p>Loading...</p>
       ) : (
         <div className={styles.list}>
-          {list.map((pokemon, i) => (
-            <Item key={pokemon.pokemon + i} pokemon={pokemon} />
+          {(isSearching ? filteredPokemon : pokemonList).map((pokemon) => (
+            <Item key={pokemon.pokemon} pokemon={pokemon} />
           ))}
         </div>
       )}
+      {noResults && <p>No Results</p>}
     </>
   );
 }

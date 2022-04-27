@@ -1,15 +1,16 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import List from './List';
 
 describe('Component and Behavioral Tests', () => {
   it('Should test the component for loading state and one pokemon', async () => {
-    render(
-      <MemoryRouter>
-        <List />
-      </MemoryRouter>
-    );
+    render(<List />);
 
     // screen.debug();
 
@@ -21,39 +22,39 @@ describe('Component and Behavioral Tests', () => {
   });
 
   it('Should test the behavior of the filtering', async () => {
-    render(
-      <MemoryRouter>
-        <List />
-      </MemoryRouter>
-    );
-
+    render(<List />);
+    //could wait for loading message to be removed
+    await waitForElementToBeRemoved(screen.getByText(/loading/i));
     // find the filter input box
     const search = screen.getByPlaceholderText('Find a Pokemon');
 
-    //type the word "venusaur" into our search
+    //type the word "jiggly" into our search
 
-    userEvent.type(search, 'jigglypuff');
+    userEvent.type(search, 'jiggly');
 
-    screen.debug();
+    //check that only "jigglypuff" character appears
+    return waitFor(() => {
+      const result = screen.getByText('jigglypuff');
+      screen.debug();
+      expect(result.textContent).toEqual('jigglypuff');
+    });
 
-    //check that only "venusaur" character appears
-
-    //FAILED ATTEMPT 1
-    // const result = await screen.findByText('jigglypuff', { timeout: 2000 });
-    // expect(result.textContent).toEqual('jigglypuff');
-
-    // FAILED ATTEMPT 2
-    // return waitFor(async () => {
-    // const result = await screen.findByLabelText('name');
-    // console.log('result', result);
-    // expect(result.textContent).toEqual('venusaur');
+    // other methods
+    // return waitFor(() => {
+    //   const result = screen.getByLabelText('name');
+    //   screen.debug();
+    //   console.log('result', result);
+    //   expect(result.textContent).toEqual('jigglypuff');
     // });
 
-    // FAILED ATTEMPT 3
-    // waitFor(async () => {
-    //   const result = await screen.findByRole('heading');
+    // other methods
+    // return waitFor(() => {
+    //   const result = screen.getByRole('heading', {
+    //     level: 2,
+    //   });
+    //   screen.debug();
     //   console.log('result', result);
-    //   expect(result.textContent).toEqual('venusaur');
+    //   expect(result.textContent).toEqual('jigglypuff');
     // });
   });
 });
