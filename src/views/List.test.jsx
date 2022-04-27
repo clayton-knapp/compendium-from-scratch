@@ -32,15 +32,15 @@ describe('Component and Behavioral Tests', () => {
 
     //type the word "venusaur" into our search
 
-    userEvent.type(search, 'jigglypuff');
+    await userEvent.type(search, 'jiggly');
 
     screen.debug();
 
-    //check that only "venusaur" character appears
+    //check that only "jigglypuff" character appears
 
     //FAILED ATTEMPT 1
-    // const result = await screen.findByText('jigglypuff', { timeout: 2000 });
-    // expect(result.textContent).toEqual('jigglypuff');
+    const result = await screen.findByText('jigglypuff', {}, { timeout: 2000 });
+    expect(result.textContent).toEqual('jigglypuff');
 
     // FAILED ATTEMPT 2
     // return waitFor(async () => {

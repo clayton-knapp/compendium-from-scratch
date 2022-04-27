@@ -44,8 +44,10 @@ export default function List() {
       <input
         placeholder="Find a Pokemon"
         value={search}
-        // onChange={(e) => {handleSearch(e)}}
-        onChange={handleSearch}
+        onChange={(e) => {
+          handleSearch(e);
+        }}
+        // onChange={handleSearch}
       ></input>
       {loading ? (
         <p>Loading...</p>
