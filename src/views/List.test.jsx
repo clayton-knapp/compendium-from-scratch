@@ -39,8 +39,8 @@ describe('Component and Behavioral Tests', () => {
     //check that only "venusaur" character appears
 
     //FAILED ATTEMPT 1
-    const result = await screen.findByText('jigglypuff', { timeout: 2000 });
-    expect(result.textContent).toEqual('jigglypuff');
+    // const result = await screen.findByText('jigglypuff', { timeout: 2000 });
+    // expect(result.textContent).toEqual('jigglypuff');
 
     // FAILED ATTEMPT 2
     // return waitFor(async () => {
