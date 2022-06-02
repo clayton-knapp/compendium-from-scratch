@@ -39,6 +39,9 @@ describe('Component and Behavioral Tests', () => {
       expect(result.textContent).toEqual('jigglypuff');
     });
 
+
+
+    
     // other methods
     // return waitFor(() => {
     //   const result = screen.getByLabelText('name');
